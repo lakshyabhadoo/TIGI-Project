@@ -29,6 +29,10 @@ class TestStringCalculator(unittest.TestCase):
         """An arbitrary number of comma‑separated numbers should return their sum."""
         self.assertEqual(add("1,2,3"), 6)
 
+    def test_newlines_between_numbers(self):
+        """Newlines can be used in addition to commas to separate numbers."""
+        self.assertEqual(add("1\n2,3"), 6)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
