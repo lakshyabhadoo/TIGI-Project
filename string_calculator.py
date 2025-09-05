@@ -27,5 +27,13 @@ def add(numbers: str) -> int:
     if numbers == "":
         return 0
 
+    # If the input contains no delimiters (comma or newline), treat it as a single number.
+    if "," not in numbers and "\n" not in numbers:
+        try:
+            return int(numbers)
+        except ValueError as exc:
+            # If conversion fails, re‑raise as a NotImplementedError for now.
+            raise NotImplementedError("Invalid input format") from exc
+
     # For any other input, we have not yet implemented logic.
-    raise NotImplementedError("Handling non‑empty input not implemented yet")
+    raise NotImplementedError("Handling multiple numbers not implemented yet")
