@@ -37,6 +37,24 @@ class TestStringCalculator(unittest.TestCase):
         """A custom delimiter can be specified in the format '//<delim>\n<nums>'"""
         self.assertEqual(add("//;\n1;2"), 3)
 
+    def test_negative_number_raises_exception(self):
+        """Passing a negative number should raise an exception with an informative message."""
+        with self.assertRaises(ValueError) as context:
+            add("1,-2,3")
+        self.assertIn("negative numbers not allowed", str(context.exception))
+        self.assertIn("-2", str(context.exception))
+
+    def test_multiple_negative_numbers_raises_exception_with_all_values(self):
+        """All negative numbers should be listed in the exception message."""
+        with self.assertRaises(ValueError) as context:
+            add("-1,-2,3")
+        message = str(context.exception)
+        # Ensure the base message is present
+        self.assertIn("negative numbers not allowed", message)
+        # The message should list both negative values separated by a comma
+        self.assertIn("-1", message)
+        self.assertIn("-2", message)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

@@ -64,9 +64,19 @@ def add(numbers: str) -> int:
     # Split the string by comma to obtain individual number tokens, ignoring
     # consecutive delimiters that would produce empty tokens.
     tokens = [token for token in normalized.split(",") if token != ""]
-    try:
-        # Convert each token to an integer and sum them.
-        int_values = [int(token) for token in tokens]
-    except ValueError as exc:
-        raise NotImplementedError("Invalid number encountered") from exc
+    int_values: List[int] = []
+    for token in tokens:
+        try:
+            value = int(token)
+        except ValueError as exc:
+            raise ValueError(f"Invalid number encountered: {token}") from exc
+        int_values.append(value)
+
+    # Detect negative numbers.  If any are found, raise an exception
+    # containing all negative values separated by commas.
+    negatives = [str(val) for val in int_values if val < 0]
+    if negatives:
+        negative_list = ",".join(negatives)
+        raise ValueError(f"negative numbers not allowed {negative_list}")
+
     return sum(int_values)
