@@ -25,6 +25,10 @@ class TestStringCalculator(unittest.TestCase):
         """Two comma‑separated numbers should return their sum."""
         self.assertEqual(add("1,5"), 6)
 
+    def test_multiple_numbers(self):
+        """An arbitrary number of comma‑separated numbers should return their sum."""
+        self.assertEqual(add("1,2,3"), 6)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
