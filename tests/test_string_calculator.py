@@ -33,6 +33,10 @@ class TestStringCalculator(unittest.TestCase):
         """Newlines can be used in addition to commas to separate numbers."""
         self.assertEqual(add("1\n2,3"), 6)
 
+    def test_custom_delimiter(self):
+        """A custom delimiter can be specified in the format '//<delim>\n<nums>'"""
+        self.assertEqual(add("//;\n1;2"), 3)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

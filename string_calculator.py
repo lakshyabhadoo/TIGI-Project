@@ -35,17 +35,34 @@ def add(numbers: str) -> int:
             # If conversion fails, re‑raise as a NotImplementedError for now.
             raise NotImplementedError("Invalid input format") from exc
 
-    # Handle default delimiters (comma or newline).  We will implement custom
-    # delimiters in a later step.  Replace newlines with commas and split.
-    # Note: additional whitespace characters are not allowed by the kata's
-    # specification, so we don't strip the string.
-    # Check for custom delimiter syntax and postpone handling.
+    # Check for custom delimiter syntax at the beginning of the string.  The
+    # format is "//<delimiter>\n<numbers>".  The delimiter can be one or more
+    # characters.  After extracting the delimiter, we will replace both
+    # newlines and the custom delimiter with commas to normalize the string.
+    delimiter: str | None = None
+    number_part = numbers
     if numbers.startswith("//"):
-        raise NotImplementedError("Custom delimiters not implemented yet")
+        newline_index = numbers.find("\n")
+        if newline_index == -1:
+            raise ValueError("Invalid custom delimiter format: missing newline")
+        delimiter = numbers[2:newline_index]
+        number_part = numbers[newline_index + 1 :]
 
+    # Determine the delimiters to use for splitting.  By default commas and
+    # newlines are supported.  When a custom delimiter is specified, we will
+    # treat the custom delimiter in addition to newlines as separators.  The
+    # original kata does not explicitly state whether commas should still be
+    # accepted when using a custom delimiter.  To keep the implementation
+    # simple, we will replace any occurrence of the custom delimiter and
+    # newlines with commas and then split on commas.  This means commas will
+    # effectively continue to be accepted as a delimiter.
+    normalized = number_part
     # Replace newline characters with commas to normalize the delimiters.
-    normalized = numbers.replace("\n", ",")
-    # Split the string by comma to obtain individual number tokens.
+    normalized = normalized.replace("\n", ",")
+    if delimiter:
+        normalized = normalized.replace(delimiter, ",")
+    # Split the string by comma to obtain individual number tokens, ignoring
+    # consecutive delimiters that would produce empty tokens.
     tokens = [token for token in normalized.split(",") if token != ""]
     try:
         # Convert each token to an integer and sum them.
