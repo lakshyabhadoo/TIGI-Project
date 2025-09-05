@@ -1,20 +1,31 @@
+"""
+Module containing the String Calculator implementation.
+
+The `add` function takes a string of numbers separated by delimiters and returns
+their sum as an integer.  The implementation will be built incrementally using
+Test‑Driven Development (TDD).
+"""
 
 from typing import List
 
 
 def add(numbers: str) -> int:
-    """Return the sum of the comma‑delimited numbers in the given string.
+    """Return the sum of the numbers in a delimited string.
 
-    This is a stub implementation.  The function will be implemented step by
-    step following the TDD process.  For now, it raises a
-    :class:`NotImplementedError` to indicate that it has not yet been
-    implemented.
+    The function accepts a string containing zero or more non‑negative integers
+    separated by delimiters.  It returns the arithmetic sum of the numbers in
+    the string.  When the input string is empty, the function returns ``0``.
+
+    The implementation will be built incrementally.  At this stage it only
+    supports an empty input string.
 
     :param numbers: A string containing zero or more numbers separated by
         delimiters (commas by default).
     :return: The sum of the numbers in the string.
-    :raises NotImplementedError: Always raised until the function is
-        implemented.
     """
-    raise NotImplementedError("Function not yet implemented")
+    # Requirement 1: An empty input string should return 0.
+    if numbers == "":
+        return 0
 
+    # For any other input, we have not yet implemented logic.
+    raise NotImplementedError("Handling non‑empty input not implemented yet")
