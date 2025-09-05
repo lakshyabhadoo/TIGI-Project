@@ -21,6 +21,10 @@ class TestStringCalculator(unittest.TestCase):
         """A single number should be returned as is."""
         self.assertEqual(add("1"), 1)
 
+    def test_two_numbers_comma_delimited(self):
+        """Two comma‑separated numbers should return their sum."""
+        self.assertEqual(add("1,5"), 6)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()

@@ -35,5 +35,21 @@ def add(numbers: str) -> int:
             # If conversion fails, re‑raise as a NotImplementedError for now.
             raise NotImplementedError("Invalid input format") from exc
 
-    # For any other input, we have not yet implemented logic.
-    raise NotImplementedError("Handling multiple numbers not implemented yet")
+    # Handle default delimiters (comma or newline).  We will implement custom
+    # delimiters in a later step.  Replace newlines with commas and split.
+    # Note: additional whitespace characters are not allowed by the kata's
+    # specification, so we don't strip the string.
+    # Check for custom delimiter syntax and postpone handling.
+    if numbers.startswith("//"):
+        raise NotImplementedError("Custom delimiters not implemented yet")
+
+    # Replace newline characters with commas to normalize the delimiters.
+    normalized = numbers.replace("\n", ",")
+    # Split the string by comma to obtain individual number tokens.
+    tokens = [token for token in normalized.split(",") if token != ""]
+    try:
+        # Convert each token to an integer and sum them.
+        int_values = [int(token) for token in tokens]
+    except ValueError as exc:
+        raise NotImplementedError("Invalid number encountered") from exc
+    return sum(int_values)
