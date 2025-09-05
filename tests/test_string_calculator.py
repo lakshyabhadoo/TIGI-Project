@@ -1,3 +1,10 @@
+"""Unit tests for the string calculator.
+
+These tests drive the implementation of the `add` function in
+``string_calculator.py``.  Each test is written before the corresponding code
+is implemented to follow the Test‑Driven Development (TDD) process.
+"""
+
 import unittest
 
 from string_calculator import add
@@ -10,7 +17,10 @@ class TestStringCalculator(unittest.TestCase):
         """An empty input string should return 0."""
         self.assertEqual(add(""), 0)
 
+    def test_single_number_returns_value(self):
+        """A single number should be returned as is."""
+        self.assertEqual(add("1"), 1)
+
 
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
-
